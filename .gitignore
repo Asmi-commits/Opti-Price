@@ -1,0 +1,52 @@
+.DS_Store
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+env/
+.conda/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data (large CSV files — generated at startup)
+data/raw/*.csv
+data/processed/*.csv
+data/external/*.csv
+
+# Models
+*.pkl
+*.joblib
+*.h5
+
+# Experiments
+experiments/logs/*
+experiments/results/*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+
+# Power BI / Tableau (large binary files)
+dashboards/powerbi/*.pbix
+dashboards/tableau/*.twbx

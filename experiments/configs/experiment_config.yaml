@@ -1,0 +1,51 @@
+experiment:
+  name: "dynamic_pricing_v1"
+  description: "Baseline dynamic pricing optimization experiment"
+  random_seed: 42
+  test_start_date: "2024-10-01"
+
+data:
+  sales_file: "data/raw/sales_data.csv"
+  catalog_file: "data/raw/product_catalog.csv"
+  competitor_file: "data/raw/competitor_prices.csv"
+  inventory_file: "data/raw/inventory_data.csv"
+
+features:
+  rolling_windows: [7, 14, 30, 60]
+  lag_periods: [1, 7, 14, 28]
+  include_interactions: true
+  include_cyclical_encoding: true
+
+demand_model:
+  type: "gbr"  # gbr, rf, ridge
+  params:
+    n_estimators: 500
+    max_depth: 8
+    learning_rate: 0.05
+    subsample: 0.8
+    colsample_bytree: 0.8
+    min_child_weight: 5
+    reg_alpha: 0.1
+    reg_lambda: 1.0
+  cross_validation:
+    n_splits: 5
+    gap: 7
+
+elasticity:
+  alpha: 1.0
+  min_observations: 60
+  include_controls: true
+
+pricing_optimization:
+  objective: "profit"  # profit or revenue
+  constraints:
+    min_margin_pct: 0.05
+    max_price_change_pct: 0.20
+    price_step: 0.01
+    competitor_match: false
+    max_competitor_premium_pct: 0.10
+
+evaluation:
+  metrics: ["mae", "rmse", "mape", "r2"]
+  save_predictions: true
+  generate_plots: true
