@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 Generate a large, realistic dynamic pricing dataset simulating 2 years of
 e-commerce sales across multiple product categories, with competitor pricing,
@@ -11,7 +12,13 @@ from datetime import datetime, timedelta
 import os, json, hashlib
 
 np.random.seed(42)
-OUT = "/home/claude/dynamic-pricing-optimization/data"
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+OUT = os.path.join(SCRIPT_DIR, "data")
+
+# Ensure directories exist
+os.makedirs(f"{OUT}/raw", exist_ok=True)
+os.makedirs(f"{OUT}/processed", exist_ok=True)
+os.makedirs(f"{OUT}/external", exist_ok=True)
 
 # ── 1. Product Catalog (200 products across 8 categories) ──────────────
 categories = {
